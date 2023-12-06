@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: '«Помидор»',
       theme: ThemeData(
         primarySwatch: Colors.grey,
-        scaffoldBackgroundColor: const Color(0xfff93e6e),
+        scaffoldBackgroundColor: const Color(0xffA94442),
       ),
       home: const MyHomePage(title: 'Техника «Помидора»'),
     );
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, textAlign: TextAlign.center),
       ),
       body: Center(
         child: Column(
@@ -50,10 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(10.0)),
                 child: SizedBox(
                     child: TextButton(
-                        onPressed: null,
+                        onPressed: () {},
                         child: Text('START',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 25)))))
+                            style: TextStyle(fontSize: 25)
+                        ),
+                    ),
+                )
+            )
           ],
         ),
       ),
