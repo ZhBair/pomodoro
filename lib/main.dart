@@ -14,8 +14,12 @@ class MyApp extends StatelessWidget {
       title: '«Помидор»',
       theme: ThemeData(
         primarySwatch: Colors.grey,
-        scaffoldBackgroundColor: const Color(0xffA94442),
+        scaffoldBackgroundColor: const Color(0xFF151026),
+        appBarTheme: AppBarTheme(
+        color: const Color(0xFF151026)
+        )
       ),
+
       home: const MyHomePage(title: 'Техника «Помидора»'),
     );
   }
@@ -35,8 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, textAlign: TextAlign.center),
+        centerTitle: true,
+        title: Text(widget.title,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white
+          ),
+        ),
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -45,19 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
                 padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(width: 2.0),
-                    borderRadius: BorderRadius.circular(10.0)),
+                    border: Border.all(width: 10.0, color: Colors.white),
+                    borderRadius: BorderRadius.circular(45.0),
+                ),
                 child: SizedBox(
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text('START',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 25)
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                        'START',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
                         ),
                     ),
-                )
-            )
+                  ),
+                ))
           ],
         ),
       ),
@@ -70,22 +84,21 @@ class TimerWidget extends StatefulWidget {
     super.key,
   });
 
-
   @override
   State<TimerWidget> createState() => _TimerWidgetState();
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  var timer = 25*60*1000;
+  var timer = 25 * 60 * 1000;
 
   String milToString(int millis) {
     var minutes = millis / 60000;
     var seconds = millis % 60000;
 
-    return '00:'+ format(minutes) + ':' + format(seconds);
+    return '00:' + format(minutes) + ':' + format(seconds);
   }
 
-  String format (dynamic t) {
+  String format(dynamic t) {
     final f = NumberFormat("00");
     return f.format(t);
   }
@@ -94,15 +107,16 @@ class _TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(width: 2.0),
-            borderRadius: BorderRadius.circular(10.0)),
         child: SizedBox(
-            width: 100.0,
+            width: 250.0,
             child: Text(milToString(timer),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25))));
+                style: TextStyle(
+                    fontSize: 55,
+                    color: Colors.white
+                ),
+            ),
+        ),
+    );
   }
 }
-
