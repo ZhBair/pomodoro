@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: const Color(0xFF151026),
-        appBarTheme: AppBarTheme(
-        color: const Color(0xFF151026)
+        appBarTheme: const AppBarTheme(
+        color: Color(0xFF151026)
         )
       ),
 
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(widget.title,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white
           ),
         ),
@@ -61,8 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: SizedBox(
                   child: TextButton(
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: () {}, // start timer
+                    child: const Text(
                         'START',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -106,12 +106,12 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: SizedBox(
             width: 250.0,
             child: Text(milToString(timer),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 55,
                     color: Colors.white
                 ),
