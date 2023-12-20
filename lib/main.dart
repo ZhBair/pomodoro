@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:async';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      Provider(create: (context){"";} )
+    ],
+    child: const MyApp(),
+  ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '«Помидор»',
+      title: '«Баклажан»',
       theme: ThemeData(
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: const Color(0xFF151026),
@@ -20,7 +28,7 @@ class MyApp extends StatelessWidget {
         )
       ),
 
-      home: const MyHomePage(title: 'Техника «Помидора»'),
+      home: const MyHomePage(title: 'Техника «Баклажана»'),
     );
   }
 }
@@ -35,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ValueNotifier valuepressbutton = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,16 +62,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TimerWidget(),
+            ValueListenableProvider.value(value: valuepressbutton, child: TimerWidget()),
             Container(
                 padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 10.0, color: Colors.white),
-                    borderRadius: BorderRadius.circular(45.0),
+                    border: Border.all(width: 3.0, color: Colors.white),
+                    borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: SizedBox(
                   child: TextButton(
-                    onPressed: () {}, // start timer
+                    onPressed: () {
+                      valuepressbutton.value(true);
+                    }, // start timer
                     child: const Text(
                         'START',
                         textAlign: TextAlign.center,
@@ -90,6 +102,13 @@ class TimerWidget extends StatefulWidget {
 
 class _TimerWidgetState extends State<TimerWidget> {
   var timer = 25 * 60 * 1000;
+  late bool valueNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    valueNotifier = Provider.of<bool>(context, listen: true);
+  }
 
   String milToString(int millis) {
     var minutes = millis / 60000;
@@ -105,6 +124,19 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (valueNotifier == true) {
+      Timer.periodic(const Duration(seconds: 1), (timer2) {
+        print(timer2.tick);
+        timer = timer - (timer2.tick * 1000);
+        if (timer < 0) {
+          print('Cancel timer');
+          timer2.cancel();
+        }
+        setState(() {
+
+        });
+      });
+    }
     return Container(
         padding: const EdgeInsets.all(15.0),
         child: SizedBox(
@@ -113,6 +145,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 55,
+                    fontWeight: FontWeight.bold,
                     color: Colors.white
                 ),
             ),
@@ -120,3 +153,4 @@ class _TimerWidgetState extends State<TimerWidget> {
     );
   }
 }
+
